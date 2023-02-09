@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Render } from '@nestjs/common';
 import { CitizensService } from './citizens.service';
 import { CreateCitizenDto } from './dto/create-citizen.dto';
 import { UpdateCitizenDto } from './dto/update-citizen.dto';
@@ -6,6 +6,11 @@ import { UpdateCitizenDto } from './dto/update-citizen.dto';
 @Controller('citizens')
 export class CitizensController {
   constructor(private readonly citizensService: CitizensService) {}
+
+  @Get('create')
+  @Render('citizens/create-citizens.html')
+  createForm() {
+  }
 
   @Post()
   create(@Body() createCitizenDto: CreateCitizenDto) {
@@ -19,10 +24,10 @@ export class CitizensController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.citizensService.findOne(+id);
+    return this.citizensService.findOne (+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateCitizenDto: UpdateCitizenDto) {
     return this.citizensService.update(+id, updateCitizenDto);
   }

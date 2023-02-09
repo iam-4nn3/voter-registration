@@ -1,34 +1,39 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Voter } from "../../../bio-data/voters/entities/voter.entity";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
 
 @Entity()
 export class Citizen {
   @PrimaryGeneratedColumn()
   id: number;
+  
+  @Column()
+  primaryPhoneNumber: number;
 
   @Column()
   firstName: string;
 
-  @Column()
+  @Column({ nullable: true})
   middleName: string;
 
   @Column()
   lastName: string;
 
-  @Column()
-  dateOfBirth: string;
+  @Column({ nullable: true})
+  dateOfBirth: Date;
 
-  @Column()
+  @Column({ nullable: true})
   stateOfBirth: string;
 
-  @Column()
+  @Column({ nullable: true})
   townOfBirth: string;
 
-  @Column()
+  @Column({ nullable: true})
   residenceAddress: string;
 
-  @Column()
-  primaryPhoneNumber: string;
-
-  @Column()
+  @Column({ nullable: true})
   profession: string;
+
+  @OneToOne(type => Voter, voter => voter.citizen)
+    voter: Voter;
 }

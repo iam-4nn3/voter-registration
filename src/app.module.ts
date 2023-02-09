@@ -3,23 +3,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BioDataModule } from './bio-data/bio-data.module';
+import { Voter } from './bio-data/voters/entities/voter.entity';
+import { Citizen } from './bio-data/citizens/entities/citizen.entity';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(
-    {
-      "type": "postgres",
-      "host": "localhost",
-      "port": 5433,
-      "username": "postgres",
-      "password": "*Rhev5ng5",
-      "database": "voter-registration",
-      "entities": [
-      "dist/**/*.entity{.ts,.js}"
-      ],
-      "synchronize": true,
-      "logging": true
-      }
-  ),BioDataModule],
+  imports: [TypeOrmModule.forRoot({
+    type: "postgres",
+    host: "localhost",
+    port: 5433,
+    username: "postgres",
+    password: "*Rhev5ng5",
+    database: "voter-registration",
+    entities: [
+        "dist/**/*.entity{.ts,.js}",
+      Citizen, Voter
+    ],
+    synchronize: true,
+    "logging": true
+  }), BioDataModule],
   controllers: [AppController],
   providers: [AppService],
 })
